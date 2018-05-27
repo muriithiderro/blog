@@ -4,6 +4,7 @@ from wtforms.validators import Required,Email,EqualTo
 from wtforms import ValidationError
 from wtforms.fields.html5 import EmailField
 from wtforms.widgets import Input
+from app.models import Subscribe
 # from ..models import User
 
 class UpdateProfile(FlaskForm):
@@ -22,6 +23,10 @@ class CommentForm(FlaskForm):
 class SubscriptionForm(FlaskForm):
 	email = EmailField('Your Email Address',validators=[Required(),Email(message="I don't like your email.")])
 	submit = SubmitField('subscribe')
+
+	def validate_email(self, field):
+		if Subscribe.query.filter_by(email=field.data).first():
+			raise ValidationError('Email already exists.')
 
 class EditPost(FlaskForm):
 	body = TextAreaField("update post body.", validators=[Required()])
