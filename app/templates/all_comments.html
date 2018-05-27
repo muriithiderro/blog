@@ -1,0 +1,30 @@
+{% extends 'index.html' %}
+{% import 'bootstrap/wtf.html' as wtf%}
+{% block content %}
+	<div class="col-md-4">
+	</div>
+	<div class="col-md-8">
+		<blockquote class="blockquote mb-0" style="text-align: center;">
+			<p>comments for <em>"{{post.body}}"</em></p>
+			<p style="float: right"><a href="#">Comments </a> <span class="badge badge-primary badge-pill">{{ post.comment.count() }}</span> </p>
+			<footer class="blockquote-footer" style="margin-bottom: 0px"> <a href="#">
+			</a><cite title="Source Title"> posted on {{post.timestamp.strftime('%Y-%m-%d')}}</cite></footer>
+		</blockquote>
+		{% if post.comment %}
+
+		{% for p in post.comment %}
+		   {% if current_user.is_anonymous %}
+             	<li> {{p.body }}</li>
+		   {% else %}
+				<p> {{p.body }} <a class="badge badge-primary badge-pill" href="{{url_for('main.delete_comment',id=p.id)}}">delete </a></p>
+			{% endif %}
+
+		  
+		{% endfor %}
+		<p><a href="{{ url_for('main.comment',id=post.author.id, id2=post.id)}}">add a comment.</a></p>
+
+		{% else %}
+		<h5>No comments yet!</h5>
+		{% endif %}
+	</div>
+{% endblock%}

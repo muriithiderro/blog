@@ -1,0 +1,31 @@
+
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf%}
+
+{% import 'index_macros.html' as macro %}
+  {% block content %}
+  {{ macro.display(posts)}}
+ <div class="col-md-4" style="text-align: center;">
+      <div class="content-section">
+        <p class="text-muted"> Extras
+          <ul style="list-style: none">
+            <li>Latest Post</li>
+            {% for post in latest_posts %}
+                  <p class="btn-info">{{post.body}} at {{post.timestamp.strftime('%Y-%m-%d')}}</p>
+            {% endfor %}
+            <ul>Calenders</li>
+            <li><a href="{{url_for('main.index')}}">home</a></li>
+            <li>
+              {{wtf.quick_form(form)}}
+            </li>
+          </ul>
+        </p>
+      </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+
+  

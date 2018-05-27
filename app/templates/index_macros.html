@@ -1,0 +1,44 @@
+{% macro display(posts) %}
+  <h3>All posts</h3>
+<div class="row">
+   
+    <div class="col-md-8 list-group-item list-group-item-action align-items-start">
+    {% for post in posts %}
+      <a class="portfolio-item d-block mx-auto" href="#article-modal">
+        <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
+          <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
+            <i class="fa fa-search-plus fa-3x"></i>
+          </div>
+          
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <div >
+              <a href="#">
+                {% if post.author.pic %}
+                  <img style="height: 70px; float: left" class="img-fluid mb-5 d-block mx-auto rounded-circle"
+                  src="{{ url_for('static', filename= post.author.pic) }}">
+                {% else %}
+                  <img style="height: 70px; float: left" class="img-fluid mb-5 d-block mx-auto"
+                  src="{{ url_for('static', filename= 'photos/user.jpg') }}">
+                {% endif %}
+              </a></div>
+              <blockquote class="blockquote mb-0" style="text-align: center;">
+                <p>{{post.body}}</p>
+
+
+                <p style="float: right"><a href="{{ url_for('main.comment',id=post.author.id, id2=post.id)}}">Comment </a> <span class="badge badge-primary badge-pill">{{ post.comment.count() }}</span> </p>
+                <footer class="blockquote-footer" style="margin-bottom: 0px"> <a href="#">
+                  {{ post.author.name }}
+                </a><cite title="Source Title"> posted on {{post.timestamp.strftime('%Y-%m-%d')}}</cite></footer>
+                
+                <p><a href="{{url_for('main.comments',id=post.id)}}">all comments.</a></p>
+              </blockquote>
+            </div>
+          </div>
+         {% endfor %}
+        </div>
+      
+
+		
+	{% endmacro %}

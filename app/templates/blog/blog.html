@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block content %}
+	<div class="container">
+		<div class="row" style=" margin-top: -60px">
+			<div class="col-md-6" >
+				{% if user.pic %}
+					<img class="img-fluid mb-5 d-block mx-auto rounded-circle img-thumbnail"
+					src="{{ url_for('static',filename=user.pic )}}">
+				{% else %}
+					<p>No profile picture</p>
+				{% endif %}
+				
+			</div>
+
+			<div class="col-md-6">
+				<h3>{{user.username | capitalize }}</h3>
+				{% if user == current_user %}
+					<a href="{{url_for('main.update_blog',uname=user.name)}}">Edit Profile</a>
+				{% endif %}
+				{% if user.bio %}
+					<p>{{ user.bio }}</p>
+				{% else %}
+					<p>{{user.username|capitalize}} has no bio </p>
+				{% endif %}
+				{% if user == current_user %}
+					<form action="{{ url_for('main.update_pic', uname=user.name)}}" method="post" enctype="multipart/form-data">
+						<input type="file" name="photo" class="form-control" required>
+						<input type="submit">
+						
+					</form>
+				{% endif %}
+			</div>
+			<div class="row" style="text-align: center;margin-top: 10px">
+		
+				<ul>
+					{% if posts %}
+						<p class="btn-success">All posts by {{ user.name}}</p>
+						{% for post in posts %}
+							<div class="list-group">
+								<a href="{{url_for('main.edit_post',id=post.id)}}" class="list-group-item list-group-item-action flex-column align-items-start">
+									{{post.body}} <small>click to edit</small>
+									
+									{% if user == current_user %}
+										<small><a href="{{url_for('main.delete',id=post.id)}}">delete </a>
+										<a href="{{url_for('main.comments',id=post.id)}}">comments</a></small>
+									{% endif %}
+									
+									
+								</a>
+								
+							</div>
+							
+						{% endfor %}
+						<small><a href="{{url_for('main.post_form', uname=current_user.name)}}">add a post!</a></small>
+					{% else %}
+						<h3>You have no posts yet. create now!</h3>
+						<h6><a href="{{url_for('main.post_form', uname=current_user.name)}}">add a post!</a></h6>
+					{% endif %}
+				</ul>
+			
+			</div>
+		</div>
+	</div>
+{% endblock %}
