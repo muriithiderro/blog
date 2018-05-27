@@ -6,18 +6,18 @@ from flask_bootstrap import Bootstrap
 from flask_bcrypt import Bcrypt
 from flask_uploads import UploadSet,configure_uploads,IMAGES
 from flask_simplemde import SimpleMDE
-from flask_socketio import SocketIO ,send
 from flask_moment import Moment
+from flask_mail import Mail
 
 
 # instance of the database
 db = SQLAlchemy()
 bootstrap = Bootstrap()
 bcrypt=Bcrypt()
+mail = Mail()
 photos = UploadSet('photos',IMAGES)
 
 simple = SimpleMDE()
-socketio = SocketIO()
 moment = Moment()
 
 # //login
@@ -57,8 +57,8 @@ def create_app(config_name):
     #simple markdown initialization
 	simple.init_app(app)
 
-	#socketio initialization
-	socketio.init_app(app)
+	# initializing mail
+	mail.init_app(app)
 
 	#flask moment initialization
 	moment.init_app(app)
