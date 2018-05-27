@@ -28,7 +28,7 @@ class DevConfig(Config):
 	DEBUG = True
 
 class TestConfig(Config):
-	SQLALCHEMY_DATABASE_URI = "postgresql://postgres:postgres@localhost/test_bloggy"
+	SQLALCHEMY_DATABASE_URI = "postgresql://postgres:postgres@localhost/bloggy_test"
 
 config_options = {
 	'development':DevConfig,
