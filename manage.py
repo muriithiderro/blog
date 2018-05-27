@@ -2,7 +2,6 @@ from flask_migrate import Migrate,MigrateCommand
 from flask_script import Manager,Server
 
 #local imports
-from app import db,socketio
 from app import create_app
 
 from app.models import *
