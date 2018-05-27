@@ -9,12 +9,13 @@ class Config:
 	UPLOADED_PHOTOS_DEST = "app/static/photos"
 
 	# email configurations
-	MAIL_SERVER = 'smtp.google.cpm'
+	MAIL_SERVER = 'smtp.googlemail.com'
 	MAIL_PORT = 587
 	MAIL_USE_TLS = True
 	MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
-	MAIL_PASSWORD = os.environ.get("MAIL.PASSWORD")
-
+	MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
+	FLASKY_MAIL_SUBJECT_PREFIX = ['bloggy']
+	FLASKY_MAIL_SENDER = os.environ.get('MAIL_USERNAME')
 
 	# simple mde configurations
 	SIMPLEMDE_JS_IIFE = True
