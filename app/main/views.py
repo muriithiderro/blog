@@ -5,8 +5,7 @@ from . import main
 from ..models import *
 from .forms import *
 from .. import db,photos
-from .. import socketio,send
-
+from app.email import mail_message
 
 class IndexView(View):
 	
@@ -20,7 +19,9 @@ class IndexView(View):
 
 		form = SubscriptionForm()
 		if form.validate_on_submit():
-			print(form.data)
+			subscriber = Subscribe(email=form.email.data)
+			db.session.add(subscriber)
+			db.session.commit()
 
 		
 		return render_template(self.template_name, form=form, posts=self.posts, latest_posts=self.latest_posts)
@@ -61,6 +62,11 @@ class PostView(View):
 			post = Post(body=form.body.data, blog_id=current_user.id)
 			db.session.add(post)
 			db.session.commit()
+
+			# message the subscribers
+			subscribers = Subscribe.query.all()
+
+			mail_message("a new post has been added, bloggy site", "email/subscriber",subscribers,post=post)
 			return redirect(url_for('main.blog', uname=current_user.name))
 		# pitches = Pitch.query.order_by(Pitch.timestamp.desc()).all()
 
