@@ -14,9 +14,9 @@
 
 		{% for p in post.comment %}
 		   {% if current_user.is_anonymous %}
-             	<li> {{p.body }}</li>
+             	<li class="list-group list-group-item"> {{p.body }}</li>
 		   {% else %}
-				<p> {{p.body }} <a class="badge badge-primary badge-pill" href="{{url_for('main.delete_comment',id=p.id)}}">delete </a></p>
+				<li class="list-group list-group-item"> {{p.body }} <a class="badge badge-primary badge-pill" href="{{url_for('main.delete_comment',id=p.id)}}">delete </a></li>
 			{% endif %}
 
 		  
