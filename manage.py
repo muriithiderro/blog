@@ -7,7 +7,7 @@ from app import create_app
 from app.models import *
 from config import *
 
-app = create_app('development')
+app = create_app('production')
 
 # manager commands
 manager = Manager(app)
