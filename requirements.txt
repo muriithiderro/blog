@@ -55,7 +55,7 @@ Jinja2==2.10
 kiwisolver==1.0.1
 lxml==4.2.1
 Mako==1.0.7
-markdown2==2.3.5
+markdown2==2.4.0
 MarkupSafe==1.0
 matplotlib==2.2.2
 munch==2.3.2
